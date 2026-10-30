@@ -35,6 +35,13 @@ Cada clic a WhatsApp también envía el evento `whatsapp_click` al `dataLayer` (
 
 Para ver cómo se verá la página cuando termine la promoción: agrega `?vista=finalizada` a la URL.
 
+## Cambiar la foto de un producto
+
+1. Prepara la foto: **cuadrada** (ideal 800 × 800 px o más), **fondo blanco** y el producto centrado ocupando casi todo el recuadro. Formatos: `.webp`, `.jpg` o `.png`.
+2. Opción rápida (mismo nombre): en GitHub entra a `assets/productos/`, pulsa **Add file → Upload files** y sube la foto con **exactamente el mismo nombre** del archivo actual (ej. `guante-anticorte-m37.webp`). Si la foto nueva es `.jpg` o `.png`, súbela con su nombre y cambia el campo `img` de ese producto en `index.html` (ej. `img:'guante-anticorte-m37.jpg'`).
+3. Si el producto se ve pequeño dentro de la tarjeta, agrega `zoom` al producto en `index.html`, por ejemplo `img:'gafa-monogafa-om.webp', zoom:1.2`.
+4. Al hacer *Commit changes*, Railway publica el cambio automáticamente en 1–2 minutos.
+
 ## Pendientes
 
 ### 1. Medición de conversiones en Google Ads (cuenta 409-926-5471)

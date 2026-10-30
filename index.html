@@ -52,6 +52,7 @@ a{color:inherit}
 button{font:inherit}
 .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--gutter)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
 
 /* ---------- Buttons ---------- */
@@ -640,39 +641,41 @@ var CONFIG = {
   googleAdsId: '',
   googleAdsLabel: '',
   mensajes: {
-    general: 'Hola Abrasivos Industriales 👋 Vi la promoción de Aniversario 59 años y quiero más información sobre los descuentos.',
-    producto: 'Hola Abrasivos Industriales 👋 Vi la promoción de Aniversario 59 años y me interesa:\n\n• {nombre} ({marca})\n• Precio aniversario: {precio} ({dto} de descuento)\n\n¿Me ayudan con la cotización?',
-    cotizar: 'Hola Abrasivos Industriales 👋 Vi la promoción de Aniversario 59 años y quiero cotizar los siguientes productos: ',
-    finalizada: 'Hola Abrasivos Industriales 👋 Vi la promoción de Aniversario 59 años y quiero conocer los precios y ofertas vigentes.'
+    general: 'Hola Abrasivos Industriales, vi la promoción de Aniversario 59 años y quiero más información sobre los descuentos.',
+    producto: 'Hola Abrasivos Industriales, vi la promoción de Aniversario 59 años y me interesa:\n\n• {nombre} ({marca})\n• Precio aniversario: {precio} ({dto} de descuento)\n\n¿Me ayudan con la cotización?',
+    cotizar: 'Hola Abrasivos Industriales, vi la promoción de Aniversario 59 años y quiero cotizar los siguientes productos: ',
+    finalizada: 'Hola Abrasivos Industriales, vi la promoción de Aniversario 59 años y quiero conocer los precios y ofertas vigentes.'
   }
 };
 
-/* Productos del catálogo de aniversario (precios con IVA) */
+/* Productos del catálogo de aniversario (precios con IVA)
+   img:  nombre del archivo dentro de assets/productos/ (.webp, .jpg o .png)
+   zoom: opcional, agranda la foto dentro de la tarjeta (ej. zoom:1.2) */
 var PRODUCTOS = [
-  {n:'Disco de corte 4½" x 3/64 A46T doble propósito', m:'Abracol', d:20, a:3600, p:2880, c:'abrasivos', img:'disco-corte-abracol'},
-  {n:'Disco para madera negro 4½" x 7/8', m:'Norton', d:15, a:64600, p:54910, c:'abrasivos', img:'disco-madera-norton'},
-  {n:'Disco Rapid Blend 4½" con soporte rojo', m:'Norton', d:15, a:44900, p:38165, c:'abrasivos', img:'disco-rapid-blend-norton'},
-  {n:'Disco Rapid Strip Blaze 4½" naranja', m:'Norton', d:15, a:90000, p:76500, c:'abrasivos', img:'disco-rapid-strip-norton'},
-  {n:'Felpa diamantada 100 x 2.5 x 20 mm', m:'Makros', d:20, a:15200, p:12160, c:'abrasivos', img:'felpa-diamantada-makros'},
-  {n:'Felpa diamantada 100 x 2.5 x 20 mm', m:'Esforza', d:25, a:14700, p:11025, c:'abrasivos', img:'felpa-diamantada-esforza'},
-  {n:'Grata copa lisa 3" multirosca', m:'Hopex', d:25, a:11700, p:8775, c:'abrasivos', img:'grata-copa-3-hopex'},
-  {n:'Grata copa lisa 4" multirosca', m:'Makros', d:20, a:19100, p:15280, c:'abrasivos', img:'grata-copa-4-makros'},
-  {n:'Rueda abrasiva 20 x 4 x 2 mm (x 50 unds)', m:'', d:30, a:120000, p:84000, c:'abrasivos', img:'rueda-abrasiva-x50'},
-  {n:'Puntas montadas tipo W', m:'Múltiples ref.', d:15, a:10900, p:9265, c:'abrasivos', img:'puntas-montadas-tipo-w'},
-  {n:'Tapa oídos tipo copa diadema A55', m:'Workseg', d:15, a:21900, p:18615, c:'seguridad', img:'tapa-oidos-a55'},
-  {n:'Careta para esmerilar completa F20', m:'Workseg', d:20, a:25300, p:20240, c:'seguridad', img:'careta-esmerilar-f20'},
-  {n:'Guante anticorte nivel 5 M37', m:'Workseg', d:15, a:18600, p:15810, c:'seguridad', img:'guante-anticorte-m37'},
-  {n:'Guante carnaza reforzado corto', m:'', d:15, a:10200, p:8670, c:'seguridad', img:'guante-carnaza-corto'},
-  {n:'Delantal PVC amarillo cal. 22', m:'', d:20, a:18400, p:14720, c:'seguridad', img:'delantal-pvc-amarillo'},
-  {n:'Gorro en velo blanco tipo baño', m:'', d:20, a:6500, p:5200, c:'seguridad', img:'gorro-velo-blanco'},
-  {n:'Guante soldador Kodiak 16"', m:'Zubi-Ola', d:20, a:82000, p:65600, c:'seguridad', img:'guante-soldador-kodiak'},
-  {n:'Guante nylon poliuretano M30N', m:'Workseg', d:20, a:4800, p:3840, c:'seguridad', img:'guante-nylon-m30n'},
-  {n:'Tapabocas N95 con válvula (R27)', m:'Workseg', d:30, a:4700, p:3290, c:'seguridad', img:'tapabocas-n95-r27'},
-  {n:'Tapabocas KN95 sin válvula (R22)', m:'Workseg', d:30, a:2900, p:2030, c:'seguridad', img:'tapabocas-kn95-r22'},
-  {n:'Respirador ref. 6200 talla M', m:'3M', d:15, a:91100, p:77435, c:'seguridad', img:'respirador-3m-6200'},
-  {n:'Cartucho 6003 vapores orgánicos (par)', m:'3M', d:15, a:98400, p:83640, c:'seguridad', img:'cartucho-3m-6003'},
-  {n:'Filtro 2097 P100 partículas / neblinas (par)', m:'3M', d:15, a:74800, p:63580, c:'seguridad', img:'filtro-3m-2097'},
-  {n:'Gafa monogafa OM', m:'', d:30, a:12000, p:8400, c:'seguridad', img:'gafa-monogafa-om'}
+  {n:'Disco de corte 4½" x 3/64 A46T doble propósito', m:'Abracol', d:20, a:3600, p:2880, c:'abrasivos', img:'disco-corte-abracol.webp'},
+  {n:'Disco para madera negro 4½" x 7/8', m:'Norton', d:15, a:64600, p:54910, c:'abrasivos', img:'disco-madera-norton.webp'},
+  {n:'Disco Rapid Blend 4½" con soporte rojo', m:'Norton', d:15, a:44900, p:38165, c:'abrasivos', img:'disco-rapid-blend-norton.webp'},
+  {n:'Disco Rapid Strip Blaze 4½" naranja', m:'Norton', d:15, a:90000, p:76500, c:'abrasivos', img:'disco-rapid-strip-norton.webp'},
+  {n:'Felpa diamantada 100 x 2.5 x 20 mm', m:'Makros', d:20, a:15200, p:12160, c:'abrasivos', img:'felpa-diamantada-makros.webp'},
+  {n:'Felpa diamantada 100 x 2.5 x 20 mm', m:'Esforza', d:25, a:14700, p:11025, c:'abrasivos', img:'felpa-diamantada-esforza.webp'},
+  {n:'Grata copa lisa 3" multirosca', m:'Hopex', d:25, a:11700, p:8775, c:'abrasivos', img:'grata-copa-3-hopex.webp'},
+  {n:'Grata copa lisa 4" multirosca', m:'Makros', d:20, a:19100, p:15280, c:'abrasivos', img:'grata-copa-4-makros.webp'},
+  {n:'Rueda abrasiva 20 x 4 x 2 mm (x 50 unds)', m:'', d:30, a:120000, p:84000, c:'abrasivos', img:'rueda-abrasiva-x50.webp'},
+  {n:'Puntas montadas tipo W', m:'Múltiples ref.', d:15, a:10900, p:9265, c:'abrasivos', img:'puntas-montadas-tipo-w.webp'},
+  {n:'Tapa oídos tipo copa diadema A55', m:'Workseg', d:15, a:21900, p:18615, c:'seguridad', img:'tapa-oidos-a55.webp'},
+  {n:'Careta para esmerilar completa F20', m:'Workseg', d:20, a:25300, p:20240, c:'seguridad', img:'careta-esmerilar-f20.webp'},
+  {n:'Guante anticorte nivel 5 M37', m:'Workseg', d:15, a:18600, p:15810, c:'seguridad', img:'guante-anticorte-m37.webp'},
+  {n:'Guante carnaza reforzado corto', m:'', d:15, a:10200, p:8670, c:'seguridad', img:'guante-carnaza-corto.webp'},
+  {n:'Delantal PVC amarillo cal. 22', m:'', d:20, a:18400, p:14720, c:'seguridad', img:'delantal-pvc-amarillo.webp'},
+  {n:'Gorro en velo blanco tipo baño', m:'', d:20, a:6500, p:5200, c:'seguridad', img:'gorro-velo-blanco.webp'},
+  {n:'Guante soldador Kodiak 16"', m:'Zubi-Ola', d:20, a:82000, p:65600, c:'seguridad', img:'guante-soldador-kodiak.webp'},
+  {n:'Guante nylon poliuretano M30N', m:'Workseg', d:20, a:4800, p:3840, c:'seguridad', img:'guante-nylon-m30n.webp'},
+  {n:'Tapabocas N95 con válvula (R27)', m:'Workseg', d:30, a:4700, p:3290, c:'seguridad', img:'tapabocas-n95-r27.webp'},
+  {n:'Tapabocas KN95 sin válvula (R22)', m:'Workseg', d:30, a:2900, p:2030, c:'seguridad', img:'tapabocas-kn95-r22.webp'},
+  {n:'Respirador ref. 6200 talla M', m:'3M', d:15, a:91100, p:77435, c:'seguridad', img:'respirador-3m-6200.webp'},
+  {n:'Cartucho 6003 vapores orgánicos (par)', m:'3M', d:15, a:98400, p:83640, c:'seguridad', img:'cartucho-3m-6003.webp'},
+  {n:'Filtro 2097 P100 partículas / neblinas (par)', m:'3M', d:15, a:74800, p:63580, c:'seguridad', img:'filtro-3m-2097.webp'},
+  {n:'Gafa monogafa OM', m:'', d:30, a:12000, p:8400, c:'seguridad', img:'gafa-monogafa-om.webp'}
 ];
 
 (function(){
@@ -713,7 +716,7 @@ var PRODUCTOS = [
     var top = p.d >= 30;
     html += '<article class="card reveal" data-cat="' + p.c + (top ? ' top' : '') + '">' +
       '<div class="card-img">' +
-        '<img src="assets/productos/' + p.img + '.webp" alt="' + p.n.replace(/"/g,'&quot;') + (p.m ? ' ' + p.m : '') + '" width="400" height="400" loading="lazy" decoding="async">' +
+        '<img src="assets/productos/' + p.img + '"' + (p.zoom ? ' style="transform:scale(' + p.zoom + ')"' : '') + ' alt="' + p.n.replace(/"/g,'&quot;') + (p.m ? ' ' + p.m : '') + '" width="400" height="400" loading="lazy" decoding="async">' +
         '<span class="badge">-' + p.d + '%<small>DESCUENTO</small></span>' +
         (top ? '<span class="hot">Top</span>' : '') +
       '</div>' +
