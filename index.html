@@ -640,6 +640,8 @@ var CONFIG = {
   // Google Ads: ID de conversión "AW-XXXXXXXXX" y etiqueta de la acción de conversión. Vacío = sin seguimiento.
   googleAdsId: '',
   googleAdsLabel: '',
+  // Google Analytics 4: ID de medición "G-XXXXXXXXXX". Vacío = sin Analytics.
+  ga4Id: '',
   mensajes: {
     general: 'Hola Abrasivos Industriales, vi la promoción de Aniversario 59 años y quiero más información sobre los descuentos.',
     producto: 'Hola Abrasivos Industriales, vi la promoción de Aniversario 59 años y me interesa:\n\n• {nombre} ({marca})\n• Precio aniversario: {precio} ({dto} de descuento)\n\n¿Me ayudan con la cotización?',
@@ -775,14 +777,16 @@ var FOTOS_VERSION = 2;
   setWaLinks();
   if (tick()){ var timer = setInterval(function(){ if (!tick()) clearInterval(timer); }, 1000); }
 
-  /* ----- Medición (Google Ads / GTM) ----- */
+  /* ----- Medición (Google Ads / Analytics / GTM) ----- */
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
-  if (CONFIG.googleAdsId){
+  var tagIds = [CONFIG.googleAdsId, CONFIG.ga4Id].filter(Boolean);
+  if (tagIds.length){
     var s = document.createElement('script');
-    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.googleAdsId;
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + tagIds[0];
     document.head.appendChild(s);
-    gtag('js', new Date()); gtag('config', CONFIG.googleAdsId);
+    gtag('js', new Date());
+    tagIds.forEach(function(id){ gtag('config', id); });
   }
   function track(evento, datos){
     dataLayer.push(Object.assign({event: evento}, datos || {}));
@@ -794,6 +798,9 @@ var FOTOS_VERSION = 2;
       track('whatsapp_click', {ubicacion: a.getAttribute('data-wa'), producto: i !== null ? PRODUCTOS[i].n : ''});
       if (CONFIG.googleAdsId && CONFIG.googleAdsLabel){
         gtag('event', 'conversion', {send_to: CONFIG.googleAdsId + '/' + CONFIG.googleAdsLabel});
+      }
+      if (CONFIG.ga4Id){
+        gtag('event', 'generate_lead', {send_to: CONFIG.ga4Id, method: 'whatsapp', ubicacion: a.getAttribute('data-wa'), producto: i !== null ? PRODUCTOS[i].n : ''});
       }
       return;
     }

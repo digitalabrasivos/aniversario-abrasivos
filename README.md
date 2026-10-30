@@ -27,6 +27,7 @@ Al inicio del `<script>` en `index.html` está el objeto `CONFIG`:
 | `fin` | Fecha y hora en que termina la promoción. Después se muestra “Promoción finalizada”. |
 | `youtubeId` | ID del video de YouTube de la campaña. Vacío = la sección de video no se muestra. |
 | `googleAdsId` / `googleAdsLabel` | ID de conversión (`AW-XXXXXXXXX`) y etiqueta de la acción de conversión. Cada clic a WhatsApp se registra como conversión. |
+| `ga4Id` | ID de medición de Google Analytics 4 (`G-XXXXXXXXXX`). Envía el evento `generate_lead` en cada clic a WhatsApp. |
 | `mensajes` | Mensajes prellenados de WhatsApp. |
 
 Los productos y precios están en el arreglo `PRODUCTOS`, justo debajo de `CONFIG`.
