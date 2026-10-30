@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/productos/disco-rapid-strip-norton.webp">
+<link rel="preload" as="image" href="assets/productos/disco-rapid-strip-norton.webp?v=2">
 
 <style>
 :root{
@@ -425,10 +425,10 @@ body.is-ended .live-only{display:none!important}
       <div class="ring"></div>
       <div class="glow"></div>
       <div class="seal"><i>Celebramos</i><b>59</b><span>años</span></div>
-      <div class="orb o1"><div class="orb-in"><img src="assets/productos/disco-rapid-strip-norton.webp" alt="" width="400" height="400" fetchpriority="high"></div><span class="tag live-only">-15%</span></div>
-      <div class="orb o2"><div class="orb-in"><img src="assets/productos/tapabocas-n95-r27.webp" alt="" width="400" height="400"></div><span class="tag live-only">-30%</span></div>
-      <div class="orb o3"><div class="orb-in"><img src="assets/productos/grata-copa-3-hopex.webp" alt="" width="400" height="400"></div><span class="tag live-only">-25%</span></div>
-      <div class="orb o4"><div class="orb-in"><img src="assets/productos/guante-anticorte-m37.webp" alt="" width="400" height="400"></div><span class="tag live-only">-15%</span></div>
+      <div class="orb o1"><div class="orb-in"><img src="assets/productos/disco-rapid-strip-norton.webp?v=2" alt="" width="400" height="400" fetchpriority="high"></div><span class="tag live-only">-15%</span></div>
+      <div class="orb o2"><div class="orb-in"><img src="assets/productos/tapabocas-n95-r27.webp?v=2" alt="" width="400" height="400"></div><span class="tag live-only">-30%</span></div>
+      <div class="orb o3"><div class="orb-in"><img src="assets/productos/grata-copa-3-hopex.webp?v=2" alt="" width="400" height="400"></div><span class="tag live-only">-25%</span></div>
+      <div class="orb o4"><div class="orb-in"><img src="assets/productos/guante-anticorte-m37.webp?v=2" alt="" width="400" height="400"></div><span class="tag live-only">-15%</span></div>
     </div>
   </div>
 </section>
@@ -678,6 +678,9 @@ var PRODUCTOS = [
   {n:'Gafa monogafa OM', m:'', d:30, a:12000, p:8400, c:'seguridad', img:'gafa-monogafa-om.webp'}
 ];
 
+/* Súbelo en 1 cada vez que reemplaces fotos, para que los navegadores no muestren las anteriores */
+var FOTOS_VERSION = 2;
+
 (function(){
   var FIN = new Date(CONFIG.fin).getTime();
   var params = new URLSearchParams(location.search);
@@ -716,7 +719,7 @@ var PRODUCTOS = [
     var top = p.d >= 30;
     html += '<article class="card reveal" data-cat="' + p.c + (top ? ' top' : '') + '">' +
       '<div class="card-img">' +
-        '<img src="assets/productos/' + p.img + '"' + (p.zoom ? ' style="transform:scale(' + p.zoom + ')"' : '') + ' alt="' + p.n.replace(/"/g,'&quot;') + (p.m ? ' ' + p.m : '') + '" width="400" height="400" loading="lazy" decoding="async">' +
+        '<img src="assets/productos/' + p.img + '?v=' + FOTOS_VERSION + '"' + (p.zoom ? ' style="transform:scale(' + p.zoom + ')"' : '') + ' alt="' + p.n.replace(/"/g,'&quot;') + (p.m ? ' ' + p.m : '') + '" width="400" height="400" loading="lazy" decoding="async">' +
         '<span class="badge">-' + p.d + '%<small>DESCUENTO</small></span>' +
         (top ? '<span class="hot">Top</span>' : '') +
       '</div>' +
