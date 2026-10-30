@@ -1,0 +1,13 @@
+{
+  "name": "aniversario-abrasivos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page Aniversario 59 años - Abrasivos Industriales",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
