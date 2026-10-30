@@ -34,3 +34,29 @@ Los productos y precios están en el arreglo `PRODUCTOS`, justo debajo de `CONFI
 Cada clic a WhatsApp también envía el evento `whatsapp_click` al `dataLayer` (útil si se usa Google Tag Manager).
 
 Para ver cómo se verá la página cuando termine la promoción: agrega `?vista=finalizada` a la URL.
+
+## Pendientes
+
+### 1. Medición de conversiones en Google Ads (cuenta 409-926-5471)
+
+El número `409-926-5471` es el ID de la **cuenta** de Google Ads; para medir conversiones se necesita
+el **ID de conversión** y la **etiqueta**:
+
+1. Google Ads → **Objetivos → Conversiones → Resumen → + Nueva acción de conversión → Sitio web**.
+2. Ingresar la URL de la landing y elegir **Agregar una acción de conversión manualmente**.
+   - Objetivo: *Contacto* (o *Cliente potencial*). Nombre sugerido: `Clic WhatsApp – Landing Aniversario`.
+   - Valor: sin valor o un valor fijo estimado por lead. Recuento: **Uno** (un lead por clic/sesión).
+3. Guardar → **Configuración de la etiqueta → Usar Google Tag Manager**. Allí aparecen:
+   - **ID de conversión** → va en `CONFIG.googleAdsId` con el prefijo `AW-` (ej. `AW-123456789`).
+   - **Etiqueta de conversión** → va en `CONFIG.googleAdsLabel`.
+4. Desplegar y verificar con *Google Tag Assistant* que el clic a WhatsApp dispare la conversión.
+5. En la campaña de video, usar esa acción como objetivo de conversión principal.
+
+### 2. Video de la campaña
+
+Poner el ID de YouTube en `CONFIG.youtubeId` para que aparezca la sección de video.
+
+## Logos
+
+En `assets/`: `logo-abrasivos-azul.png` (principal, sobre fondos claros) y `logo-abrasivos-blanco.png`
+(sobre fondos oscuros: encabezado y pie de página).
