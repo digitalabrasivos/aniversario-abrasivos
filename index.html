@@ -677,6 +677,9 @@ var CONFIG = {
   googleAdsLabel: 'NOPeCKS9gK8dEKj358UD',
   // Google Analytics 4: ID de medición "G-XXXXXXXXXX". Vacío = sin Analytics.
   ga4Id: '',
+  // Una conversión solo cuenta si la persona estuvo al menos estos segundos en la página
+  // y es el primer clic de la visita. Filtra toques accidentales, bots y clics repetidos.
+  minSegundos: 4,
   mensajes: {
     general: 'Hola Abrasivos Industriales, vi su anuncio y quiero cotizar productos para mi empresa.\n\nEmpresa:\nProductos y cantidades:\nCiudad:',
     categoria: 'Hola Abrasivos Industriales, vi su anuncio y quiero cotizar productos de {x} para mi empresa.\n\nEmpresa:\nProductos y cantidades:\nCiudad:',
@@ -695,7 +698,8 @@ var CONFIG = {
     else if (k === 'categoria') t = CONFIG.mensajes.categoria.replace('{x}', m);
     else if (k === 'lista-propia') t = CONFIG.mensajes.lista;
     else t = CONFIG.mensajes.general;
-    a.href = wa(t);
+    // "Ref" permite contar en WhatsApp cuántos chats llegaron realmente desde cada botón
+    a.href = wa(t + '\n\nRef: EMP-' + k);
   });
 
   /* ----- Medición (Google Ads / Analytics / GTM) ----- */
@@ -710,11 +714,23 @@ var CONFIG = {
     tagIds.forEach(function(id){ gtag('config', id); });
   }
   function track(evento, datos){ dataLayer.push(Object.assign({event: evento}, datos || {})); }
+
+  /* Conversión estricta: una sola por visita, con tiempo mínimo en la página y sin bots */
+  var t0 = Date.now(), yaConvirtio = false;
+  try { yaConvirtio = sessionStorage.getItem('conv_wa') === '1'; } catch(err){}
+  function esBot(){
+    return navigator.webdriver === true || /bot|crawl|spider|headless|lighthouse|preview/i.test(navigator.userAgent);
+  }
   document.addEventListener('click', function(e){
     var a = e.target.closest('a[data-wa]');
     if (a){
       var ubic = a.getAttribute('data-wa'), det = a.getAttribute('data-msg') || '';
-      track('whatsapp_click', {ubicacion: ubic, detalle: det});
+      var seg = (Date.now() - t0) / 1000;
+      var motivo = esBot() ? 'bot' : (seg < CONFIG.minSegundos ? 'muy_rapido' : (yaConvirtio ? 'repetido' : ''));
+      track('whatsapp_click', {ubicacion: ubic, detalle: det, segundos: Math.round(seg), valido: !motivo, motivo: motivo});
+      if (motivo) return;
+      yaConvirtio = true;
+      try { sessionStorage.setItem('conv_wa', '1'); } catch(err){}
       if (CONFIG.googleAdsId && CONFIG.googleAdsLabel){
         gtag('event', 'conversion', {send_to: CONFIG.googleAdsId + '/' + CONFIG.googleAdsLabel});
       }

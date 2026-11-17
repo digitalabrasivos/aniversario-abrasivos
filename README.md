@@ -30,9 +30,14 @@ Al inicio del `<script>` en `index.html` está el objeto `CONFIG`:
 | `videos` | Lista de videos de YouTube. Ej.: `[{id:'ID_DEL_VIDEO'}, {id:'ID_SHORT', vertical:true}]`. Vacía = la sección no se muestra. Máximo 3. |
 | `googleAdsId` / `googleAdsLabel` | Conversión de Google Ads. Cada clic a WhatsApp se registra. |
 | `ga4Id` | ID de medición de Google Analytics 4 (`G-XXXXXXXXXX`). Envía `generate_lead` en cada clic a WhatsApp. |
+| `minSegundos` | Segundos mínimos en la página para que un clic cuente como conversión (por defecto 4). |
 | `mensajes` | Mensajes prellenados de WhatsApp (general, categoría, kit y lista propia). |
 
-Cada clic a WhatsApp también envía el evento `whatsapp_click` al `dataLayer`, con `ubicacion` (hero, kit, categoria, etc.) y `detalle`.
+### Cómo cuenta las conversiones
+- Solo se envía **una conversión por visita** (los clics repetidos no cuentan).
+- No cuenta si la persona toca el botón antes de `minSegundos` (toques accidentales) ni si parece un bot.
+- Cada clic, valido o no, queda en el `dataLayer` como `whatsapp_click` con `ubicacion`, `detalle`, `segundos`, `valido` y `motivo`.
+- El mensaje de WhatsApp termina con `Ref: EMP-<ubicacion>`. Buscando `EMP-` en los chats de WhatsApp se cuentan los chats reales que llegaron desde la página.
 
 ## Cambiar una foto
 
